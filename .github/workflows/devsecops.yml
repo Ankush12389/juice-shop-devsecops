@@ -54,6 +54,25 @@ jobs:
       - name: "Prepare Docker image"
         run: echo "Image pushed"
 
+curl "https://app.akto.io/api/startTest" \
+            -H 'X-API-KEY: wOFLu4YPbhySI44u3BJTIMtvNnHWwxiHzTBcR3TA' \
+            -H 'content-type: application/json' \
+            -d '{"testingRunHexId": "6538807eb0c62f3ac225ab62", "startTimestamp" : 0,"metadata": {"platform": "Github Actions"}}' \
+            --compressed
+
+
+
+
+  akto-api:
+    runs-on: ubuntu-latest
+    needs: package
+    steps:
+      - name: akto-api-dashboard
+        env:
+          AKTO_API_KEY: ${{ secrets.AKTO_API_KEY }}
+        run: | 
+          curl "https://app.akto.io/api/startTest" -H 'X-API-KEY: wOFLu4YPbhySI44u3BJTIMtvNnHWwxiHzTBcR3TA' -H 'content-type: application/json' -d '{"testingRunHexId": "6538807eb0c62f3ac225ab62", "startTimestamp" : 0,"metadata": {"platform": "Github Actions"}}'  --compressed
+
 
   deploy:
     runs-on: ubuntu-latest
