@@ -19,6 +19,17 @@ jobs:
       - name: "npm build"
         run: echo "Build complete"
 
+  akto-api-security-testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "npm build"
+        run: |
+          curl "https://app.akto.io/api/startTest" \
+            -H 'X-API-KEY: J8QH9DBhsSBQTsCjCcOSzRJr2QbjIHE9vLuzkEI3' \
+            -H 'content-type: application/json' \
+            -d '{"testingRunHexId": "653c67e2b0c62f3ac226f07a", "startTimestamp" : 0,"metadata": {"platform": "Github Actions"}}' \
+            --compressed
+
   test:
     runs-on: ubuntu-latest
     needs: build
